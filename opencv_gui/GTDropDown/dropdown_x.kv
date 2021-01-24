@@ -1,0 +1,40 @@
+<dropdown_root>:
+	orientation: "vertical"
+	grid_root:grid_root
+	
+	ScrollView:
+		size: self.size	
+		GridLayout:
+			id: grid_root
+			cols: 1
+			size_hint_y: None
+			height: "1000dp"
+
+<Container>:
+	size_hint: (1, None)
+	height: "50dp"
+	contents:contents
+	Contents:
+		id: contents
+		width: root.width
+		y: root.y-self.height
+	
+<Contents>:
+	orientation: "vertical"
+	size_hint: (None, None)
+	height: self.minimum_height
+	
+	Button:
+		text: "X1"
+		size_hint: (1, None)
+		height: "50dp"
+		
+	Button:
+		text: "X2"
+		size_hint: (1, None)
+		height: "50dp"
+		
+	Button:
+		text: "X3"
+		size_hint: (1, None)
+		height: "60dp"

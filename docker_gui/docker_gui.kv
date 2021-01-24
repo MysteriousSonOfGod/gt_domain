@@ -1,0 +1,61 @@
+<docker_home>:
+	tabs:tabs
+	
+	BoxLayout:
+		orientation:"vertical"
+		
+		TabbedPanel: 
+			do_default_tab: False
+			id: tabs
+			tab_width: self.parent.width / 4
+			background_image: "gallery/seraph.jpg"
+	
+<tabs_slot>:
+	grid_x:grid_x
+	on_release: self.insert_docker()
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			size:self.size
+			GridLayout:
+				id: grid_x
+				cols: 1
+				size_hint: (1, None)
+				height:self.minimum_height
+				
+<box_slot>:
+	size_hint: (1, None)
+	height: "50sp"
+	chkbox:chkbox
+	button_x:button_x
+	
+	CheckBox:
+		id:chkbox
+		size_hint: (5, 1)
+		
+	Button:
+		id: button_x
+		text:root.btext
+		size_hint: (95, 1)
+		on_press: root.bubble()
+				
+<action>:
+	ActionView:
+		ActionPrevious:
+		ActionButton:
+			text:"remove"
+			disabled:True
+			
+		ActionButton:
+			text:"refresh"
+			on_press: root.restart()
+			
+<bubbles>:
+	size_hint: (None, None)
+	size: ("50dp", "50dp")
+	pos: self.button_x.pos
+	arrow_pos: "top_mid"
+	
+	BubbleButton:
+		text: "Copy"
+			

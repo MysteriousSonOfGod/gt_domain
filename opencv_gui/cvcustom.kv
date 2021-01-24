@@ -1,0 +1,155 @@
+#:import Factory kivy.factory.Factory
+#:import Window kivy.core.window.Window
+	
+<CVRoot>:
+	orientation: "vertical"
+	main_screen:main_screen
+	head:head
+	rect_cv:rect_cv
+	
+	ActionCV:
+	BoxLayout:
+		id: head
+		Splitter:
+			id: splitter_x
+			sizable_from: "right"
+			size_hint_x: None
+			
+			width: "0dp"
+			min_size: "0dp"
+			max_size: Window.width*0.45
+			
+			keep_within_parent: True
+			opacity: 0 if self.width <= 1 else 1
+				
+			ScrollView:
+				size:self.size
+				GridLayout:
+					size_hint_y: None
+					height: self.minimum_height
+					cols: 1
+					Draw_Rectangle:
+						id: rect_cv
+						
+		ScreenManager:
+			id: sm
+			MainScreen:
+				id: main_screen
+	
+	Splitter:
+		sizable_from: "top"
+		
+		size_hint_y: None
+		min_size: "0dp"
+		max_size: Window.height*0.25
+		
+		height: "0dp"
+		opacity: 0 if self.height <= 1 else 1
+		
+		TabbedPanel:
+			do_default_tab: False
+			TabbedPanelItem:
+				text: "script"
+				CodeInput:
+					text: ">>> "
+					id: code_input
+					auto_indent: True
+					multiline: False
+					focus: True
+			TabbedPanelItem:
+				text: "Logs"
+				id: logs
+				Label:
+					text: "Hello Kivy"
+					text_size: self.size
+					valign: "top"
+					halign: "left"
+<MainScreen@Screen>:
+	name: "MainScreen"
+	tab_root:tab_root
+	tab_main:tab_main
+	TabbedPanel:
+		id: tab_root
+		do_default_tab: False
+		
+		TabbedScreen:
+			id: tab_main
+			text: "Main"
+						
+<TabbedScreen>:
+	opencv_cam:opencv_cam
+	OpencvCamera:
+		id: opencv_cam
+		
+<OpencvCamera>:
+	play: True
+	allow_stretch: True
+	image_size:(int(Window.width), int(Window.height))
+	cv_root: app.cv_root
+	
+<ActionCV@ActionBar>:
+	ActionView:
+		ActionPrevious:
+			title: "Kivy"
+		ActionGroup:
+			ActionButton:
+				text: "Remove Page"
+<Draw_Rectangle>:
+	orientation: "vertical"
+	x_co_ordinate:x_co_ordinate
+	y_co_ordinate:y_co_ordinate
+	w_co_ordinate:w_co_ordinate
+	h_co_ordinate:h_co_ordinate
+	
+	size_hint_y: None
+	height: self.minimum_height
+	
+	Label:
+		text: "Create New Image"
+		size_hint_y: None
+		height: "50dp"
+		
+	GridLayout:
+		id: grid_x
+		cols:1
+		size_hint_y: None
+		height: self.minimum_height
+		Input_Holder:
+			id:x_co_ordinate
+		Input_Holder:
+			id:y_co_ordinate
+		Input_Holder:
+			id:w_co_ordinate
+		Input_Holder:
+			id:h_co_ordinate
+
+	ToggleButton:
+		text: "Apply"
+		size_hint_y: None
+		height: "50dp"
+	
+<Input_Holder>:
+	cols: 2
+	size_hint_y:None
+	height: "45dp"
+	slider_x:slider_x
+	Label:
+		id: label_x
+		text: root.name
+		size_hint_x: 0.25
+		size: self.size
+		halign: "left"
+		
+	Slider:
+		id: slider_x
+		range:(0, 500)
+		step: 1
+		cursor_size: [20, 20]
+		size_hint_x: 0.75
+		
+<ScrollViewCV@ScrollView>:
+	size: self.size
+	GridLayout:
+		id:grid_x
+		size_hint_y: None
+		cols:1
